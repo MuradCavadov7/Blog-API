@@ -1,4 +1,6 @@
-﻿using BlogApp.BL.Helper;
+﻿using BlogApp.BL.ExternalServices.Implements;
+using BlogApp.BL.ExternalServices.Interfaces;
+using BlogApp.BL.Helper;
 using BlogApp.BL.Services.Implements;
 using BlogApp.BL.Services.Interfaces;
 using FluentValidation;
@@ -17,8 +19,8 @@ namespace BlogApp.BL
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IJwtHandler, JwtHandler>();
             return services;
         }
         public static IServiceCollection AddFluentValidation(this IServiceCollection services)

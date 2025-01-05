@@ -8,7 +8,7 @@ namespace BlogApp_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController(IUserService _service) : ControllerBase
+    public class AuthController(IAuthService _service) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetByUserName(string username)
@@ -17,16 +17,15 @@ namespace BlogApp_API.Controllers
             return Ok(data);
         }
         [HttpPost]
-        public async Task<IActionResult> Register(UserCreateDto dto)
+        public async Task<IActionResult> Register(RegisterDto dto)
         {
-            await _service.Create(dto);
+            await _service.RegisterAsync(dto);
             return Created();
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto dto)
         {
-            await _service.Login(dto);
-            return Ok();
+            return Ok(await _service.LoginAsync(dto));
         }
     }
 }

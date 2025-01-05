@@ -152,3 +152,4 @@ C:\Users\99477\Desktop\BlogApp\BlogApp\BlogApp-API\bin\Debug\net8.0\FluentValida
 C:\Users\99477\Desktop\BlogApp\BlogApp\BlogApp-API\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Users\99477\Desktop\BlogApp\BlogApp\BlogApp-API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\99477\Desktop\BlogApp\BlogApp\BlogApp-API\obj\Debug\net8.0\BlogApp.API.sourcelink.json
+C:\Users\99477\Desktop\BlogApp\BlogApp\BlogApp-API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

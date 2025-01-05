@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlogApp.BL.DTOs.UserDto;
+using BlogApp.BL.Helper;
 using BlogApp.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace BlogApp.BL.Profiles
     {
         public UserProfile()
         {
-            CreateMap<UserCreateDto, User>();
+            CreateMap<RegisterDto, User>()
+                .ForMember(x=>x.PasswordHash, y => y.MapFrom(z=>HashHelper.HashPassword(z.Password)));
         }
     }
 }

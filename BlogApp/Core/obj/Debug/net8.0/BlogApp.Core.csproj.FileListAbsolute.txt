@@ -9,3 +9,4 @@ C:\Users\99477\Desktop\BlogApp\BlogApp\Core\obj\Debug\net8.0\BlogApp.Core.dll
 C:\Users\99477\Desktop\BlogApp\BlogApp\Core\obj\Debug\net8.0\refint\BlogApp.Core.dll
 C:\Users\99477\Desktop\BlogApp\BlogApp\Core\obj\Debug\net8.0\BlogApp.Core.pdb
 C:\Users\99477\Desktop\BlogApp\BlogApp\Core\obj\Debug\net8.0\ref\BlogApp.Core.dll
+C:\Users\99477\Desktop\BlogApp\BlogApp\Core\obj\Debug\net8.0\BlogApp.Core.sourcelink.json

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace BlogApp.BL.Services.Interfaces
 {
-    public interface IUserService
+    public interface IAuthService
     {
-        Task<string> Create(UserCreateDto dto);
-        Task<bool> Login(UserLoginDto dto);
+        Task RegisterAsync(RegisterDto dto);
+        Task<string> LoginAsync(UserLoginDto dto);
         Task<User?> GetUserByUsername(string username);
 
     }

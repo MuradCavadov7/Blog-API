@@ -12,5 +12,7 @@ namespace BlogApp.Core.Repositories
         User GetCurrentUser();
         int GetCurrentUserId();
         Task<User?> GetByUsernameAsync(string username);
+        Task<User?> GetByEmailAsync(string email);
+
     }
 }

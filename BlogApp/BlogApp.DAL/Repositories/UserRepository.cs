@@ -23,7 +23,8 @@ namespace BlogApp.DAL.Repositories
 
         public async Task<User?> GetByUsernameAsync(string username)
             => await _context.Users.Where(x=>x.Username == username).FirstOrDefaultAsync();
-
+        public async Task<User?> GetByEmailAsync(string email)
+            => await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
         public User GetCurrentUser()
         {
             throw new NotImplementedException();

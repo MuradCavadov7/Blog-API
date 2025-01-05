@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace BlogApp.BL.Validators.User
 {
-    public class UserCreateDtoValidator : AbstractValidator<UserCreateDto>
+    public class RegisterDtoValidator : AbstractValidator<RegisterDto>
     {
         readonly IUserRepository _repo;
-        public UserCreateDtoValidator(IUserRepository repo)
+        public RegisterDtoValidator(IUserRepository repo)
         {
             _repo = repo;
             RuleFor(x => x.Name)
@@ -51,12 +51,18 @@ namespace BlogApp.BL.Validators.User
                 .NotEmpty()
                 .WithMessage("Username cannot be empty")
                 .MaximumLength(32)
-                 .WithMessage("The length should not be more than 32")
-                 .Must(x =>
-                 {
-                     return _repo.GetByUsernameAsync(x).Result == null;
-                 })
-                 .WithMessage("Username is Exist");
+                 .WithMessage("The length should not be more than 32");
+                 //.Must(x =>
+                 //{
+                 //    return _repo.GetByUsernameAsync(x).Result == null;
+                 //})
+                 //.WithMessage("Username is Exist");
+            RuleFor(x => x.Password)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Password cannot be empty");
+                //.Matches(@"^(.{0,7}|[^0-9]*|[^A-Z])$")
+                //.WithMessage("Password type is not true");
         }
     }
 }
