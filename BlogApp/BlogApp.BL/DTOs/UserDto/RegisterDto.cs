@@ -15,6 +15,5 @@ namespace BlogApp.BL.DTOs.UserDto
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsMale { get; set; }
-        public int Role { get; set; } = 2;
     }
 }

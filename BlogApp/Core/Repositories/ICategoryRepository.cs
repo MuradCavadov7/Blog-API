@@ -7,8 +7,5 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Core.Repositories
 {
-    public interface ICategoryRepository : IGenericRepository<Category> 
-    {
-        Task<bool> IsExistAsync(string name);
-    }
+    public interface ICategoryRepository : IGenericRepository<Category> { }
 }

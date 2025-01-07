@@ -7,7 +7,17 @@ using System.Threading.Tasks;
 
 namespace BlogApp.BL.Exceptions.Common
 {
-    public class ExistException<T> : Exception, IBaseException
+    public class ExistException : Exception, IBaseException
+    {
+        public int StatusCode => StatusCodes.Status409Conflict;
+
+        public string ErrorMessage { get; }
+        public ExistException(string message)
+        {
+            ErrorMessage = message;
+        }
+    }
+    public class ExistException<T> : ExistException, IBaseException
     {
 
         public int StatusCode => StatusCodes.Status409Conflict;

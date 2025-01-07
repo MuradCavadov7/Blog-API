@@ -17,7 +17,7 @@ namespace BlogApp.BL.Services.Implements
     {
         public async Task<int> CreateAsync(CategoryCreateDto dto)
         {
-            if (await _repo.IsExistAsync(dto.Name)) throw new ExistException<Category> ($"{dto.Name} is created");
+            if (await _repo.IsExistAsync(x=>x.Name == dto.Name)) throw new ExistException<Category>($"{dto.Name} is created");
             Category cat = _mapper.Map<Category>(dto);
             await _repo.AddAsync(cat);
             await _repo.SaveAsync();

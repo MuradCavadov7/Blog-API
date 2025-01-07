@@ -26,6 +26,7 @@ namespace BlogApp_API
             builder.Services.AddFluentValidation();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddAuth(builder.Configuration);
+            builder.Services.AddJwtOptions(builder.Configuration);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>

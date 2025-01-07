@@ -64,7 +64,7 @@ namespace BlogApp.BL.Services.Implements
             }
             if(!HashHelper.VerifyHashedPassword(user.PasswordHash,dto.Password))
             {
-                throw new NotFoundException<User>("User Not Found");
+                throw new NotFoundException<User>("User p Not Found");
             }
             
             return _jwtHandler.CreateJwtToken(user,36);

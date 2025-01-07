@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,7 +37,7 @@ namespace BlogApp.DAL.Repositories
         public async Task<T?> GetByIdAsync(int id)
             => await Table.FindAsync(id);
 
-        public IQueryable<T> GetWhere(Func<T, bool> predicate) 
+        public IQueryable<T> GetWhere(Expression<Func<T, bool>> predicate) 
             =>Table.Where(predicate).AsQueryable();
         
 
@@ -45,5 +46,10 @@ namespace BlogApp.DAL.Repositories
 
         public async Task<int> SaveAsync()
             => await _context.SaveChangesAsync();
+
+
+
+        public async Task<bool> IsExistAsync(Expression<Func<T, bool>> expression)
+            => await Table.AnyAsync(expression);
     }
 }

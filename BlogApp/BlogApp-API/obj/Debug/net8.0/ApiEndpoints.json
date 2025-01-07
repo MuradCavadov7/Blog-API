@@ -17,24 +17,8 @@
   },
   {
     "ContainingType": "BlogApp_API.Controllers.AuthController",
-    "Method": "Register",
-    "RelativePath": "api/Auth",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "BlogApp.BL.DTOs.UserDto.RegisterDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BlogApp_API.Controllers.AuthController",
     "Method": "Login",
-    "RelativePath": "api/Auth/login",
+    "RelativePath": "api/Auth/Login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -42,6 +26,22 @@
       {
         "Name": "dto",
         "Type": "BlogApp.BL.DTOs.UserDto.UserLoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp_API.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BlogApp.BL.DTOs.UserDto.RegisterDto",
         "IsRequired": true
       }
     ],

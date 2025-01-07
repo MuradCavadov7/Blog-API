@@ -17,11 +17,5 @@ namespace BlogApp.DAL.Repositories
         {
             _context = context;
         }
-
-        public async Task<bool> IsExistAsync(string name)
-        {
-            await _context.Categories.AnyAsync(c=> c.Name == name);
-            return false;
-        }
     }
 }

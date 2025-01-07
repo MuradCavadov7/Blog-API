@@ -7,7 +7,17 @@ using System.Threading.Tasks;
 
 namespace BlogApp.BL.Exceptions.Common
 {
-    public class NotFoundException<T> : Exception, IBaseException
+    public class NotFoundException : Exception, IBaseException
+    {
+        public int StatusCode => StatusCodes.Status404NotFound;
+
+        public string ErrorMessage { get; }
+        public NotFoundException(string message)
+        {
+            ErrorMessage = message;
+        }
+    }
+    public class NotFoundException<T> : NotFoundException, IBaseException
     {
         public int StatusCode => StatusCodes.Status404NotFound;
 
