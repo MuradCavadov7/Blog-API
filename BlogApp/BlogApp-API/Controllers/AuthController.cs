@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController(IAuthService _service) : ControllerBase
     {
@@ -16,16 +16,26 @@ namespace BlogApp_API.Controllers
             var data = await _service.GetUserByUsername(username);
             return Ok(data);
         }
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             await _service.RegisterAsync(dto);
             return Created();
         }
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<IActionResult> Login(UserLoginDto dto)
         {
             return Ok(await _service.LoginAsync(dto));
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendVerificationCode(string email)
+        {
+            return Ok(await _service.SendVerificationCodeAsync(email));
+        }
+        [HttpPost]
+        public async Task<IActionResult> VerifyEmail(string email,int code)
+        {
+            return Ok(await _service.VerifyEmailAsync(email, code));
         }
     }
 }

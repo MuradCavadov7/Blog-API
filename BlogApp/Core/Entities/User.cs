@@ -17,4 +17,6 @@ public class User : BaseEntity
     public string PasswordHash { get; set; }
     public bool IsMale {  get; set; }
     public int Role { get; set; } = (int)Roles.Viewer;
+
+    public bool EmailConfirmed { get; set; } = false;
 }

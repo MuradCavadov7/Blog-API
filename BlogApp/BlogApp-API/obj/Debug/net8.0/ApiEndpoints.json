@@ -2,7 +2,7 @@
   {
     "ContainingType": "BlogApp_API.Controllers.AuthController",
     "Method": "GetByUserName",
-    "RelativePath": "api/Auth",
+    "RelativePath": "api/Auth/GetByUserName",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -43,6 +43,43 @@
         "Name": "dto",
         "Type": "BlogApp.BL.DTOs.UserDto.RegisterDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp_API.Controllers.AuthController",
+    "Method": "SendVerificationCode",
+    "RelativePath": "api/Auth/SendVerificationCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp_API.Controllers.AuthController",
+    "Method": "VerifyEmail",
+    "RelativePath": "api/Auth/VerifyEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "code",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

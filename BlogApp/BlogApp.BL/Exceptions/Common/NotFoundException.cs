@@ -16,19 +16,15 @@ namespace BlogApp.BL.Exceptions.Common
         {
             ErrorMessage = message;
         }
-    }
+        public NotFoundException()
+        {
+            ErrorMessage = "Not Found";
+        }
+}
     public class NotFoundException<T> : NotFoundException, IBaseException
     {
-        public int StatusCode => StatusCodes.Status404NotFound;
+        public NotFoundException() : base(typeof(T).Name + "not found") { }
+        public NotFoundException(string message) : base(message) { }
 
-        public string ErrorMessage {  get;}
-        public NotFoundException() : base(typeof(T).Name + "not found")
-        {
-            ErrorMessage = typeof(T).Name + "not found";
-        }
-        public NotFoundException(string message) : base(message)
-        {
-            ErrorMessage = message;
-        }
     }
 }

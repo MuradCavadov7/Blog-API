@@ -1,37 +1,33 @@
 ﻿using AutoMapper;
 using BlogApp.BL.DTOs.UserDto;
+using BlogApp.BL.Exceptions.Common;
+using BlogApp.BL.ExternalServices.Interfaces;
+using BlogApp.BL.Helper;
 using BlogApp.BL.Services.Interfaces;
 using BlogApp.Core.Entities;
-using System.Security.Cryptography;
+using BlogApp.Core.Enums;
 using BlogApp.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlogApp.BL.Helper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using BlogApp.BL.Exceptions.Common;
-using Microsoft.JSInterop.Infrastructure;
-using BlogApp.BL.ExternalServices.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
+using System.Net;
+using System.Net.Mail;
 
 namespace BlogApp.BL.Services.Implements
 {
-    public class AuthService(IUserRepository _repo, IMapper _mapper,IJwtHandler _jwtHandler) : IAuthService
+    public class AuthService(IUserRepository _repo, IMapper _mapper, IJwtHandler _jwtHandler, IMemoryCache _cache) : IAuthService
     {
         public async Task RegisterAsync(RegisterDto dto)
         {
-            var existUser = await _repo.GetAll().Where(x=>x.Username == dto.Username || x.Email == dto.Email).FirstOrDefaultAsync();
+            var existUser = await _repo.GetWhere(x=>x.Username == dto.Username || x.Email == dto.Email).FirstOrDefaultAsync();
             if (existUser != null)
             {
                 if (dto.Username != existUser.Username)
                 {
-                    throw new ExistException<User>("This username is already available.");
+                    throw new ExistsException<User>("This username is already available.");
                 }
                 else if (dto.Email != existUser.Email)
                 {
-                    throw new ExistException<User>("This email is already available.");
+                    throw new ExistsException<User>("This email is already available.");
                 }
 
             }
@@ -40,6 +36,7 @@ namespace BlogApp.BL.Services.Implements
 
             await _repo.AddAsync(existUser);
             await _repo.SaveAsync();
+            await SendVerificationCodeAsync(existUser.Email);
 
         }
         public async Task<User?> GetUserByUsername(string username)
@@ -68,6 +65,49 @@ namespace BlogApp.BL.Services.Implements
             }
             
             return _jwtHandler.CreateJwtToken(user,36);
+        }
+
+        public async Task<int> SendVerificationCodeAsync(string email)
+        {
+            if (_cache.TryGetValue(email, out var _)) throw new BadRequestException("Email already sent");
+            if (!await _repo.IsExistAsync(x => x.Email == email)) throw new NotFoundException<User>("Email not found");
+            Random random = new Random();
+            int code = random.Next(100000, 999999);
+            await SendEmailAsync(email, code);
+            _cache.Set(email, code, TimeSpan.FromMinutes(5)); 
+            return code;
+
+        }
+        private async Task SendEmailAsync(string receiver , int code)
+        {
+            using SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Host = "smtp.gmail.com";
+            smtpClient.Port = 587;
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential("muradnc-ab108@code.edu.az", "nghb aqrb grpk taas");
+            MailAddress from = new MailAddress("muradnc-ab108@code.edu.az", "Blog App");
+            MailAddress to = new MailAddress(receiver);
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Your Verification CODE";
+            message.Body = $"Code is:{code}";
+            await smtpClient.SendMailAsync(message);
+        }
+
+        public async Task<bool> VerifyEmailAsync(string email, int code)
+        {
+            if (!_cache.TryGetValue(email, out int data)) throw new NotFoundException("6 digit code was written incorrectly");
+            if(code == data)
+            {
+                var user = await _repo.GetWhere(x=>x.Email ==  email).FirstOrDefaultAsync();
+                user!.EmailConfirmed = true;
+                user.Role = user.Role | (int)Roles.Publisher;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

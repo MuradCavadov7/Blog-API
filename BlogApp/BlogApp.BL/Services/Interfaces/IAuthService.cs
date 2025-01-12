@@ -13,6 +13,8 @@ namespace BlogApp.BL.Services.Interfaces
         Task RegisterAsync(RegisterDto dto);
         Task<string> LoginAsync(UserLoginDto dto);
         Task<User?> GetUserByUsername(string username);
+        Task<int> SendVerificationCodeAsync(string email);
+        Task<bool> VerifyEmailAsync(string email,int code);
 
     }
 }
